@@ -1,17 +1,19 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Fireside Chatter</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
   <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
+    Please select the "CREATE SESSION" button to create a new recording session.
   </p>
+
+  <button (click)="createSession()" color="dark" ion-button full>Create Session</button>
+  
   <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
+    Please select the "RECORD" button to record your voice, have it automatically transcribed, and uploaded to our webpage.
   </p>
+  
+  <button (click)="record()" ion-button full>Record</button>
 </ion-content>
