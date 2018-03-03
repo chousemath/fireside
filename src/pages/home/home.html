@@ -10,10 +10,23 @@
   </p>
 
   <button (click)="createSession()" color="dark" ion-button full>Create Session</button>
-  
+
   <p>
     Please select the "RECORD" button to record your voice, have it automatically transcribed, and uploaded to our webpage.
   </p>
+
+  <ion-item *ngIf="languages.length > 0">
+    <ion-label>Speech Language</ion-label>
+    <ion-select [(ngModel)]="speechLanguage" (ionChange)="handleLanguageSelect($event)">
+      <ion-option *ngFor="let language of languages" [value]="language.key">{{ language.value }}</ion-option>
+    </ion-select>
+  </ion-item>
   
-  <button (click)="record()" ion-button full>Record</button>
+  <button (click)="record()" ion-button full>Record Voice</button>
+
+  <h4 *ngIf="session">Current Session</h4>
+  <p *ngIf="session">{{ session }}</p>
+
+  <h4 *ngIf="transcription">Recent Transcription</h4>
+  <p *ngIf="transcription">{{ transcription }}</p>
 </ion-content>

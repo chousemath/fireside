@@ -18,14 +18,17 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Media } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
+import { Device } from '@ionic-native/device';
+import { SpeechProvider } from '../providers/speech/speech';
+import { LoadingProvider } from '../providers/loading/loading';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCj-8wv8PSKfywJ9XgU1dPU4ArrGQwxXF4",
-  authDomain: "amp-test-2e29e.firebaseapp.com",
-  databaseURL: "https://amp-test-2e29e.firebaseio.com",
-  projectId: "amp-test-2e29e",
-  storageBucket: "amp-test-2e29e.appspot.com",
-  messagingSenderId: "1066201318925"
+  apiKey: 'AIzaSyA-Gic95TJv7vHPntFg9rQJuWkZ-BZaVIM',
+  authDomain: 'trive-1470008045258.firebaseapp.com',
+  databaseURL: 'https://trive-1470008045258.firebaseio.com',
+  projectId: 'trive-1470008045258',
+  storageBucket: 'trive-1470008045258.appspot.com',
+  messagingSenderId: '748017917378'
 };
 
 @NgModule({
@@ -58,7 +61,10 @@ const firebaseConfig = {
     Media,
     File,
     SpeechRecognition,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    Device,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    SpeechProvider,
+    LoadingProvider
   ]
 })
 export class AppModule {}

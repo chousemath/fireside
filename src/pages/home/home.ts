@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Events } from 'ionic-angular';
 import { File } from '@ionic-native/file';
-import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { Media, MediaObject } from '@ionic-native/media';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { storage } from 'firebase';
 import * as moment from 'moment';
-import { Subscription } from 'rxjs/Subscription';
+import { SpeechProvider } from '../../providers/speech/speech';
 
 declare let cordova: any;
 
@@ -21,14 +20,19 @@ const bucket: string = 'gs://amp-test-2e29e.appspot.com/recordings/';
 export class HomePage {
   audioFile: MediaObject;
   filePath: string;
-  speechSubscription: Subscription;
+  transcription: string;
+  languages: Array<string> = [];
+  session: number;
+  speechLanguage: string = 'en-US';
+
   constructor(
     public navCtrl: NavController,
+    public events: Events,
     public file: File,
     public media: Media,
     public db: AngularFireDatabase,
     public storage: AngularFireStorage,
-    public speechRecognition: SpeechRecognition
+    public speech: SpeechProvider
   ) {
   }
 
@@ -37,34 +41,27 @@ export class HomePage {
       this.filePath = cordova.file.externalDataDirectory.replace(/file:\/\//g, '');
       console.log('path', this.filePath);
     }
-    console.log(this.filePath);
-    // Check feature available
-    this.speechRecognition
-      .isRecognitionAvailable()
-      .then((available: boolean) => {
-        if (available) {
-          this.speechRecognition
-            .requestPermission()
-            .then(
-              () => console.log('Granted'),
-              () => console.log('Denied')
-            )
-        }
-      })
+
+    this.events.subscribe('transcription:created', (transcription: string) => {
+      this.transcription = transcription;
+    });
+
+    this.events.subscribe('session:created', (session: number) => {
+      this.session = session;
+    });
+
+    this.events.subscribe('languages:fetched', (languages: Array<string>) => {
+      this.languages = languages;
+    });
   }
 
-  createSession() {
-    console.log('new session created');
+  createSession() { this.speech.createSession(); }
+
+  handleLanguageSelect(event) {
+    this.speech.speechLanguage = event;
   }
 
-  record() {
-    this.speechSubscription = this.speechRecognition
-      .startListening({ language: 'en-US', showPopup: true })
-      .subscribe(
-        (matches: Array<string>) => console.log(matches[0]),
-        (onerror) => console.log('error:', onerror)
-      );
-  }
+  record() { this.speech.recordVoice(); }
 
   transcribe() {
     // The name of the audio file to transcribe
