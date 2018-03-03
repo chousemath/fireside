@@ -179,7 +179,10 @@ export class SpeechProvider {
     const key = moment().unix();
     this.db.object(`recordings/${this.deviceId}/${this.session}/${key}`).update({
       key: key,
-      text: text
+      text: text,
+      language: this.speechLanguage,
+      deviceId: this.deviceId,
+      session: this.session
     }).then(() => console.log('update successful')).catch(err => console.log(err));
   }
 
