@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Events } from 'ionic-angular';
+import { NavController, Events, ModalController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { Media, MediaObject } from '@ionic-native/media';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -7,6 +7,9 @@ import { AngularFireStorage } from 'angularfire2/storage';
 import { storage } from 'firebase';
 import * as moment from 'moment';
 import { SpeechProvider } from '../../providers/speech/speech';
+
+import { ModalIdentityPage } from '../modal-identity/modal-identity';
+import { ModalLanguagePage } from '../modal-language/modal-language';
 
 declare let cordova: any;
 
@@ -18,12 +21,14 @@ const bucket: string = 'gs://amp-test-2e29e.appspot.com/recordings/';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  logo: string = 'assets/imgs/campfire.gif';
   audioFile: MediaObject;
   filePath: string;
   transcription: string;
   languages: Array<string> = [];
   session: number;
-  speechLanguage: string = 'en-US';
+  speechLanguage: string;
+  identity: string;
 
   constructor(
     public navCtrl: NavController,
@@ -32,7 +37,8 @@ export class HomePage {
     public media: Media,
     public db: AngularFireDatabase,
     public storage: AngularFireStorage,
-    public speech: SpeechProvider
+    public speech: SpeechProvider,
+    public modalCtrl: ModalController
   ) {
   }
 
@@ -55,11 +61,27 @@ export class HomePage {
     });
   }
 
-  createSession() { this.speech.createSession(); }
-
-  handleLanguageSelect(event) {
-    this.speech.speechLanguage = event;
+  selectLanguage() {
+    let modal = this.modalCtrl.create(ModalLanguagePage, {
+      languages: this.languages
+    });
+    modal.onDidDismiss(data => {
+      this.speechLanguage = data.value;
+      this.speech.speechLanguage = data.key;
+    });
+    modal.present();
   }
+
+  identify() {
+    let modal = this.modalCtrl.create(ModalIdentityPage);
+    modal.onDidDismiss(data => {
+      this.identity = data.value;
+      this.speech.identity = data.value;
+    });
+    modal.present();
+  }
+
+  createSession() { this.speech.createSession(); }
 
   record() { this.speech.recordVoice(); }
 

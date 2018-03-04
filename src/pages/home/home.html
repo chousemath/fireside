@@ -1,32 +1,24 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Fireside Chatter</ion-title>
+    <img [src]="logo" width="40px" style="display:inline-block" height="40px"/>
+    <ion-title class="titleicon" style="display:inline-block"><span style="color:	#c1272d;">Fire</span><span style="color: #fb7200;">side</span></ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <p>
-    Please select the "CREATE SESSION" button to create a new recording session.
-  </p>
-
-  <button (click)="createSession()" color="dark" ion-button full>Create Session</button>
-
-  <p>
-    Please select the "RECORD" button to record your voice, have it automatically transcribed, and uploaded to our webpage.
-  </p>
-
-  <ion-item *ngIf="languages.length > 0">
-    <ion-label>Speech Language</ion-label>
-    <ion-select [(ngModel)]="speechLanguage" (ionChange)="handleLanguageSelect($event)">
-      <ion-option *ngFor="let language of languages" [value]="language.key">{{ language.value }}</ion-option>
-    </ion-select>
-  </ion-item>
-  
-  <button (click)="record()" ion-button full>Record Voice</button>
-
-  <h4 *ngIf="session">Current Session</h4>
-  <p *ngIf="session">{{ session }}</p>
-
-  <h4 *ngIf="transcription">Recent Transcription</h4>
-  <p *ngIf="transcription">{{ transcription }}</p>
+  <button class="main-button" (click)="createSession()" color="dark" ion-button full>{{ session ? session : 'Create a Session' }}</button>
+  <button class="main-button" (click)="selectLanguage()" color="dark" ion-button full>{{ speechLanguage ? speechLanguage : 'Select Speech Language' }}</button>
+  <button class="main-button" (click)="identify()" color="dark" ion-button full>{{ identity ? identity : 'Select Identity' }}</button>
+  <button
+    *ngIf="session && speechLanguage && identity"
+    class="main-button"
+    (click)="record()" ion-button full>Record Voice</button>
+  <ion-card *ngIf="transcription">
+    <ion-card-content>
+      <ion-card-title>
+        Recent Transcription
+      </ion-card-title>
+      <p>{{ transcription }}</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

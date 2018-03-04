@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Select a language</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list *ngIf="languages">
+    <button ion-item *ngFor="let language of languages" (click)="dismiss(language)">
+      {{ language.value }}
+    </button>  
+  </ion-list>
+
+</ion-content>
+  

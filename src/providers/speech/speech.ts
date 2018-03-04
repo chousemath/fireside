@@ -22,15 +22,15 @@ const languageCodes = {
   'en-AU': 'English (Australia)',
   'en-CA': 'English (Canada)',
   'en-001': 'English',
-  'en-GH': 'en-GH',
-  'en-IN': 'en-IN',
+  'en-GH': 'English (Ghana)',
+  'en-IN': 'English (India)',
   'en-IE': 'English (Ireland)',
-  'en-KE': 'en-KE',
+  'en-KE': 'English (Kenya)',
   'en-NZ': 'English (New Zealand)',
-  'en-NG': 'en-NG',
-  'en-PH': 'English - Philippines',
-  'en-ZA': 'English - South Africa',
-  'en-TZ': 'en-TZ',
+  'en-NG': 'English (Nigeria)',
+  'en-PH': 'English (Philippines)',
+  'en-ZA': 'English (South Africa)',
+  'en-TZ': 'English (Tanzania)',
   'en-GB': 'English (United Kingdom)',
   'en-US': 'English (United States)',
   'es-AR': 'Spanish (Argentina)',
@@ -39,7 +39,7 @@ const languageCodes = {
   'es-CO': 'Spanish (Colombia)',
   'es-CR': 'Spanish (Costa Rica)',
   'es-EC': 'Spanish (Ecuador)',
-  'es-US': 'es-US',
+  'es-US': 'English (United States)',
   'es-SV': 'Spanish (El Salvador)',
   'es-ES': 'Spanish (Castilian)',
   'es-GT': 'Spanish (Guatemala)',
@@ -63,7 +63,7 @@ const languageCodes = {
   'is-IS': 'Icelandic (Iceland)',
   'it-IT': 'Italian (Italy)',
   'sw': 'Swahili',
-  'sw-TZ': 'sw-TZ',
+  'sw-TZ': 'Swahili (Tanzania',
   'lv-LV': 'Latvian (Latvia)',
   'lt-LT': 'Lithuanian (Lithuania)',
   'hu-HU': 'Hungarian (Hungary)',
@@ -97,14 +97,20 @@ const languageCodes = {
   'ar-MA': 'Arabic (Morocco)',
   'ar-TN': 'Arabic (Tunisia)',
   'ar-OM': 'Arabic (Oman)',
-  'ar-PS': 'ar-PS',
+  'ar-PS': 'Arabic (Palestine)',
   'ar-QA': 'Arabic (Qatar)',
   'ar-LB': 'Arabic (Lebanon)',
   'ar-EG': 'Arabic (Egypt)',
   'fa-IR': 'Farsi (Iran)',
   'ur-PK': 'Urdu (Islamic Republic of Pakistan)',
   'ur-IN': 'Urdu',
-  'am-ET': 'am-ET'
+  'am-ET': 'am-ET',
+  'ko-KR': 'Korean (Korea)',
+  'cmn-Hans-CN': 'Mandarin (Simplified, China)',
+  'cmn-Hans-HK': 'Mandarin (Simplified, Hong Kong)',
+  'cmn-Hant-TW': 'Mandarin (Traditional, Taiwan)',
+  'yue-Hant-HK': 'Cantonese (Traditional, Hong Kong)',
+  'ja-JP': 'Japanese (Japan)'
 };
 
 @Injectable()
@@ -116,6 +122,7 @@ export class SpeechProvider {
   languages: Array<string> = [];
   deviceId: string = this.device.uuid;
   speechLanguage: string = 'en-US';
+  identity: string = 'Red-Dragon';
 
   constructor(
     public events: Events,
@@ -177,13 +184,24 @@ export class SpeechProvider {
     this.transcription = text;
     this.events.publish('transcription:created', text);
     const key = moment().unix();
-    this.db.object(`recordings/${this.deviceId}/${this.session}/${key}`).update({
+    let payload: any = {};
+    payload.key = this.session;
+    payload['data'][key] = {
       key: key,
-      text: text,
-      language: this.speechLanguage,
-      deviceId: this.deviceId,
-      session: this.session
-    }).then(() => console.log('update successful')).catch(err => console.log(err));
+      data: {
+        identity: this.identity,
+        key: key,
+        text: text,
+        language: this.speechLanguage,
+        deviceId: this.deviceId,
+        session: this.session
+      }
+    };
+    this.db
+      .object(`recordings/${this.deviceId}/${this.session}`)
+      .update(payload)
+      .then(() => console.log('update successful'))
+      .catch(err => console.log(err));
   }
 
 }

@@ -1,0 +1,18 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Select an identity</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list *ngIf="identities">
+    <ion-item *ngFor="let identity of identities" (click)="dismiss(identity)">
+      <ion-icon [style]="identity.style" [name]="identity.icon" item-start></ion-icon> {{ identity.value }}
+    </ion-item>
+  </ion-list>
+
+</ion-content>

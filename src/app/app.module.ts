@@ -8,9 +8,11 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
+import { SettingsPage } from '../pages/settings/settings';
+import { SessionsPage } from '../pages/sessions/sessions';
+import { ModalIdentityPage } from '../pages/modal-identity/modal-identity';
+import { ModalLanguagePage } from '../pages/modal-language/modal-language';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -34,8 +36,10 @@ const firebaseConfig = {
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
+    SettingsPage,
+    SessionsPage,
+    ModalIdentityPage,
+    ModalLanguagePage,
     HomePage,
     TabsPage
   ],
@@ -50,8 +54,10 @@ const firebaseConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
+    SettingsPage,
+    SessionsPage,
+    ModalIdentityPage,
+    ModalLanguagePage,
     HomePage,
     TabsPage
   ],
