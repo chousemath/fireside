@@ -184,24 +184,14 @@ export class SpeechProvider {
     this.transcription = text;
     this.events.publish('transcription:created', text);
     const key = moment().unix();
-    let payload: any = {};
-    payload.key = this.session;
-    payload['data'][key] = {
+    this.db.object(`recordings/${this.deviceId}/${this.session}/${key}`).update({
+      identity: this.identity,
       key: key,
-      data: {
-        identity: this.identity,
-        key: key,
-        text: text,
-        language: this.speechLanguage,
-        deviceId: this.deviceId,
-        session: this.session
-      }
-    };
-    this.db
-      .object(`recordings/${this.deviceId}/${this.session}`)
-      .update(payload)
-      .then(() => console.log('update successful'))
-      .catch(err => console.log(err));
+      text: text,
+      language: this.speechLanguage,
+      deviceId: this.deviceId,
+      session: this.session
+    }).then(() => console.log('update successful')).catch(err => console.log(err));
   }
 
 }

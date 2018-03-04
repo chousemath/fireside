@@ -14,6 +14,7 @@ import { SessionsPage } from '../pages/sessions/sessions';
 import { ModalIdentityPage } from '../pages/modal-identity/modal-identity';
 import { ModalLanguagePage } from '../pages/modal-language/modal-language';
 import { TabsPage } from '../pages/tabs/tabs';
+import { PopoverLanguagePage } from '../pages/popover-language/popover-language';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,8 +22,11 @@ import { Media } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { Device } from '@ionic-native/device';
+
 import { SpeechProvider } from '../providers/speech/speech';
 import { LoadingProvider } from '../providers/loading/loading';
+
+import { TranscriptionComponent } from '../components/transcription/transcription';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA-Gic95TJv7vHPntFg9rQJuWkZ-BZaVIM',
@@ -41,7 +45,9 @@ const firebaseConfig = {
     ModalIdentityPage,
     ModalLanguagePage,
     HomePage,
-    TabsPage
+    TabsPage,
+    PopoverLanguagePage,
+    TranscriptionComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +65,8 @@ const firebaseConfig = {
     ModalIdentityPage,
     ModalLanguagePage,
     HomePage,
-    TabsPage
+    TabsPage,
+    PopoverLanguagePage
   ],
   providers: [
     StatusBar,

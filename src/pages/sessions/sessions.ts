@@ -15,6 +15,7 @@ export class SessionsPage {
 
   sessions: Array<any> = [];
   sessions$: Subscription;
+  transcriptions: Array<any> = [];
 
   constructor(
     public navCtrl: NavController,
@@ -28,7 +29,9 @@ export class SessionsPage {
     console.log(`recordings/${this.speech.deviceId}`);
     this.sessions$ = this.db.list(`recordings/${this.speech.deviceId}`).valueChanges().subscribe(sessions => {
       this.sessions = _.orderBy(sessions, ['key'], ['desc']);
-      console.log(sessions);
+      this.transcriptions = _.remove(_.orderBy(this.sessions[0], ['key'], ['desc']), e => e.text);
+      console.log('sessions', this.sessions);
+      console.log('transactions', this.transcriptions);
     });
   }
 

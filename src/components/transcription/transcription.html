@@ -1,0 +1,15 @@
+<ion-card>
+  <ion-item>
+    <ion-avatar item-start>
+      <img [src]="'assets/imgs/' + item.identity + '.png'">
+    </ion-avatar>
+    <h2>{{ item.identity }}</h2>
+    <p>{{ formatTimestamp(item.key) }}</p>
+    <button (click)="openPopover()" ion-button clear item-end icon-left style="color: #85d7ff;">
+      <ion-icon name="flash"></ion-icon>
+    </button>
+  </ion-item>
+  <ion-card-content>
+    <p>{{ item.text }}</p>
+  </ion-card-content>
+</ion-card>
