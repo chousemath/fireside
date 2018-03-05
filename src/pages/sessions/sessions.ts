@@ -25,14 +25,17 @@ export class SessionsPage {
   ) {
   }
 
-  ionViewDidLoad() {
+  ionViewWillLoad() {
     console.log(`recordings/${this.speech.deviceId}`);
-    this.sessions$ = this.db.list(`recordings/${this.speech.deviceId}`).valueChanges().subscribe(sessions => {
-      this.sessions = _.orderBy(sessions, ['key'], ['desc']);
-      this.transcriptions = _.remove(_.orderBy(this.sessions[0], ['key'], ['desc']), e => e.text);
-      console.log('sessions', this.sessions);
-      console.log('transactions', this.transcriptions);
-    });
+    this.sessions$ = this.db
+      .list(`recordings/${this.speech.deviceId}`)
+      .valueChanges()
+      .subscribe(sessions => {
+        this.sessions = _.remove(_.orderBy(sessions, ['key'], ['desc']), s => !['trash', 'archive'].includes(s.key));
+        this.transcriptions = _.remove(_.orderBy(this.sessions[0], ['key'], ['desc']), e => e.text);
+        console.log('sessions', this.sessions);
+        console.log('transcriptions', this.transcriptions);
+      });
   }
 
   ionViewWillUnload() {

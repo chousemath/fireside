@@ -5,7 +5,14 @@
     </ion-avatar>
     <h2>{{ item.identity }}</h2>
     <p>{{ formatTimestamp(item.key) }}</p>
-    <button (click)="openPopover()" ion-button clear item-end icon-left style="color: #85d7ff;">
+    <button
+      *ngIf="item.translations"
+      (click)="openPopover()"
+      ion-button
+      clear
+      item-end
+      icon-left
+      style="color: #85d7ff;">
       <ion-icon name="flash"></ion-icon>
     </button>
   </ion-item>
@@ -21,7 +28,13 @@
       </button>
     </ion-col>
     <ion-col>
-      <button ion-button icon-left clear small>
+      <button ion-button icon-left clear small (click)="archiveTranscription()">
+        <ion-icon name="ios-cloud-upload-outline"></ion-icon>
+        <div>Archive</div>
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button icon-left clear small (click)="editTranscription()">
         <ion-icon name="ios-create-outline"></ion-icon>
         <div>Edit</div>
       </button>

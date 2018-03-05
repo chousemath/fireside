@@ -13,6 +13,7 @@ import { SettingsPage } from '../pages/settings/settings';
 import { SessionsPage } from '../pages/sessions/sessions';
 import { ModalIdentityPage } from '../pages/modal-identity/modal-identity';
 import { ModalLanguagePage } from '../pages/modal-language/modal-language';
+import { ModalEditPage } from '../pages/modal-edit/modal-edit';
 import { TabsPage } from '../pages/tabs/tabs';
 import { PopoverLanguagePage } from '../pages/popover-language/popover-language';
 
@@ -44,6 +45,7 @@ const firebaseConfig = {
     SessionsPage,
     ModalIdentityPage,
     ModalLanguagePage,
+    ModalEditPage,
     HomePage,
     TabsPage,
     PopoverLanguagePage,
@@ -64,6 +66,7 @@ const firebaseConfig = {
     SessionsPage,
     ModalIdentityPage,
     ModalLanguagePage,
+    ModalEditPage,
     HomePage,
     TabsPage,
     PopoverLanguagePage
