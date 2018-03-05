@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { PopoverController } from 'ionic-angular';
+import { PopoverController, ToastController } from 'ionic-angular';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { PopoverLanguagePage } from '../../pages/popover-language/popover-language';
 import * as moment from 'moment';
 
@@ -11,7 +12,9 @@ export class TranscriptionComponent {
   @Input() public item: any;
 
   constructor(
-    public popoverCtrl: PopoverController
+    public popoverCtrl: PopoverController,
+    public db: AngularFireDatabase,
+    public toastCtrl: ToastController
   ) {
   }
 
@@ -29,6 +32,42 @@ export class TranscriptionComponent {
       }
     });
     popover.present();
+  }
+
+  destroyTranscription() {
+    let toast;
+    this.db
+      .object(`recordings/${this.item.deviceId}/trash/${this.item.session}/${this.item.key}`)
+      .set(this.item)
+      .then(() => {
+        this.db
+          .object(`recordings/${this.item.deviceId}/${this.item.session}/${this.item.key}`)
+          .remove()
+          .then(() => {
+            toast = this.toastCtrl.create({
+              message: 'Transcription deleted!',
+              duration: 1200,
+              position: 'bottom'
+            });
+            toast.present();
+          })
+          .catch(() => {
+            toast = this.toastCtrl.create({
+              message: 'Problem deleting transcription...',
+              duration: 1200,
+              position: 'bottom'
+            });
+            toast.present();
+          });
+      })
+      .catch(() => {
+        toast = this.toastCtrl.create({
+          message: 'Problem deleting transcription...',
+          duration: 1200,
+          position: 'bottom'
+        });
+        toast.present();
+      });;
   }
 
 }

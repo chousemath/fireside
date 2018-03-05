@@ -4,11 +4,15 @@ import * as _ from 'lodash';
 
 const languages = {
   af: 'Afrikaans',
+  ar: 'Arabic',
+  az: 'Azeerbaijani',
   de: 'German',
   en: 'English',
   es: 'Spanish',
+  eu: 'Basque',
   fi: 'Finnish',
   fr: 'French',
+  hy: 'Armenian',
   id: 'Indonesian',
   it: 'Italian',
   ja: 'Japanese',
@@ -16,10 +20,11 @@ const languages = {
   pl: 'Polish',
   pt: 'Portuguese',
   ru: 'Russian',
+  sq: 'Albanian',
   sv: 'Swedish',
   vi: 'Vietnamese',
-  'zh-cn': 'Chinese (Mainland)',
-  'zh-tw': 'Chinese (Taiwan)'
+  zhCn: 'Chinese (Mainland)',
+  zhTw: 'Chinese (Taiwan)'
 };
 
 @IonicPage()
