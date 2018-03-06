@@ -1,8 +1,12 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Select a language</ion-title>
-  </ion-navbar>
-
+  <ion-toolbar color="dark">
+    <ion-title>Select a Language</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dismiss(null)">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 

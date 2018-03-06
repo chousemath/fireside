@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
-import { TranscriptionComponent } from './transcription/transcription';
 @NgModule({
-	declarations: [TranscriptionComponent],
+	declarations: [],
 	imports: [],
-	exports: [TranscriptionComponent]
+	exports: []
 })
 export class ComponentsModule {}

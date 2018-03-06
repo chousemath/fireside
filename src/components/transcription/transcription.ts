@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { PopoverController, ToastController, ModalController, Toast } from 'ionic-angular';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { PopoverController, ToastController, ModalController, Toast, ActionSheetController } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { PopoverLanguagePage } from '../../pages/popover-language/popover-language';
 import * as moment from 'moment';
@@ -9,15 +9,37 @@ import { ModalEditPage } from '../../pages/modal-edit/modal-edit';
   selector: 'transcription',
   templateUrl: 'transcription.html'
 })
-export class TranscriptionComponent {
+export class TranscriptionComponent implements OnInit, OnChanges {
   @Input() public item: any;
+  @Input() public languageCode: string;
+
+  displayText: string;
 
   constructor(
     public popoverCtrl: PopoverController,
     public db: AngularFireDatabase,
     public toastCtrl: ToastController,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public actionSheetCtrl: ActionSheetController
   ) {
+  }
+
+  ngOnInit() {
+    console.log('this.languageCode', this.languageCode);
+    console.log('this.item', this.item);
+
+    if (this.languageCode && this.item.translations) {
+      this.displayText = this.item.translations[this.languageCode].text;
+    } else {
+      this.displayText = this.item.text;
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('changes', changes);
+    if (changes && changes.languageCode && changes.languageCode.currentValue) {
+      this.displayText = this.item.translations[changes.languageCode.currentValue].text;
+    }
   }
 
   formatTimestamp(timestamp: number) {
@@ -133,6 +155,41 @@ export class TranscriptionComponent {
       }
     });
     modal.present();
+  }
+
+  openActionSheet() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Options',
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: () => {
+            this.destroyTranscription();
+          }
+        },
+        {
+          text: 'Archive',
+          handler: () => {
+            this.archiveTranscription();
+          }
+        },
+        {
+          text: 'Edit Text',
+          handler: () => {
+            this.editTranscription();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 
 }

@@ -4,7 +4,7 @@ import { ModalEditPage } from './modal-edit';
 
 @NgModule({
   declarations: [
-    ModalEditPage,
+    // ModalEditPage,
   ],
   imports: [
     IonicPageModule.forChild(ModalEditPage),

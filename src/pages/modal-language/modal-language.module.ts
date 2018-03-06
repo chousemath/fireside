@@ -4,7 +4,7 @@ import { ModalLanguagePage } from './modal-language';
 
 @NgModule({
   declarations: [
-    ModalLanguagePage,
+    // ModalLanguagePage,
   ],
   imports: [
     IonicPageModule.forChild(ModalLanguagePage),

@@ -4,7 +4,7 @@ import { PopoverLanguagePage } from './popover-language';
 
 @NgModule({
   declarations: [
-    PopoverLanguagePage,
+    // PopoverLanguagePage,
   ],
   imports: [
     IonicPageModule.forChild(PopoverLanguagePage),

@@ -2,13 +2,13 @@
   <ion-toolbar color="primary">
     <ion-title>Transcriptions</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="openSessionsModal()">
         <ion-icon name="list"></ion-icon>
       </button>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="openLanguagePopover()">
         <ion-icon name="md-globe"></ion-icon>
       </button>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="shareLink()">
         <ion-icon name="md-share"></ion-icon>
       </button>
     </ion-buttons>
@@ -20,7 +20,8 @@
 
   <transcription
     *ngFor="let t of transcriptions"
-    [item]="t">
+    [item]="t"
+    [languageCode]="languageCode">
   </transcription>
 
 </ion-content>

@@ -4,7 +4,7 @@ import { SessionsPage } from './sessions';
 
 @NgModule({
   declarations: [
-    SessionsPage
+    // SessionsPage
   ],
   imports: [
     IonicPageModule.forChild(SessionsPage)

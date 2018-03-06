@@ -6,6 +6,15 @@
     <h2>{{ item.identity }}</h2>
     <p>{{ formatTimestamp(item.key) }}</p>
     <button
+      (click)="openActionSheet()"
+      ion-button
+      clear
+      item-end
+      icon-left
+      style="color: #ff664f;">
+      <ion-icon name="hammer"></ion-icon>
+    </button>
+    <button
       *ngIf="item.translations"
       (click)="openPopover()"
       ion-button
@@ -17,28 +26,6 @@
     </button>
   </ion-item>
   <ion-card-content>
-    <p>{{ item.text }}</p>
+    <p>{{ displayText }}</p>
   </ion-card-content>
-
-  <ion-row>
-    <ion-col>
-      <button ion-button icon-left clear small (click)="destroyTranscription()">
-        <ion-icon name="trash"></ion-icon>
-        <div>Delete</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left clear small (click)="archiveTranscription()">
-        <ion-icon name="ios-cloud-upload-outline"></ion-icon>
-        <div>Archive</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left clear small (click)="editTranscription()">
-        <ion-icon name="ios-create-outline"></ion-icon>
-        <div>Edit</div>
-      </button>
-    </ion-col>
-  </ion-row>
-
 </ion-card>

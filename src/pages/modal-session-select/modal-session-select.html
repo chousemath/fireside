@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="dark">
-    <ion-title>Languages</ion-title>
+    <ion-title>Select a Session</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="dismiss(null)">
         <ion-icon name="close"></ion-icon>
@@ -11,11 +11,9 @@
 
 
 <ion-content>
-
   <ion-list>
-    <button ion-item *ngFor="let language of languages" (click)="dismiss(language)">
-      {{ language.name }}
+    <button ion-item *ngFor="let item of items" (click)="dismiss(item.key)">
+      {{ formatTimestamp(item.key) }}
     </button>  
   </ion-list>
-
 </ion-content>

@@ -14,6 +14,7 @@ import { SessionsPage } from '../pages/sessions/sessions';
 import { ModalIdentityPage } from '../pages/modal-identity/modal-identity';
 import { ModalLanguagePage } from '../pages/modal-language/modal-language';
 import { ModalEditPage } from '../pages/modal-edit/modal-edit';
+import { ModalSessionSelectPage } from '../pages/modal-session-select/modal-session-select';
 import { TabsPage } from '../pages/tabs/tabs';
 import { PopoverLanguagePage } from '../pages/popover-language/popover-language';
 
@@ -23,20 +24,14 @@ import { Media } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { Device } from '@ionic-native/device';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { SpeechProvider } from '../providers/speech/speech';
 import { LoadingProvider } from '../providers/loading/loading';
 
 import { TranscriptionComponent } from '../components/transcription/transcription';
 
-const firebaseConfig = {
-  apiKey: 'AIzaSyA-Gic95TJv7vHPntFg9rQJuWkZ-BZaVIM',
-  authDomain: 'trive-1470008045258.firebaseapp.com',
-  databaseURL: 'https://trive-1470008045258.firebaseio.com',
-  projectId: 'trive-1470008045258',
-  storageBucket: 'trive-1470008045258.appspot.com',
-  messagingSenderId: '748017917378'
-};
+import firebaseConfig from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -46,6 +41,7 @@ const firebaseConfig = {
     ModalIdentityPage,
     ModalLanguagePage,
     ModalEditPage,
+    ModalSessionSelectPage,
     HomePage,
     TabsPage,
     PopoverLanguagePage,
@@ -67,6 +63,7 @@ const firebaseConfig = {
     ModalIdentityPage,
     ModalLanguagePage,
     ModalEditPage,
+    ModalSessionSelectPage,
     HomePage,
     TabsPage,
     PopoverLanguagePage
@@ -78,6 +75,7 @@ const firebaseConfig = {
     File,
     SpeechRecognition,
     Device,
+    SocialSharing,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SpeechProvider,
     LoadingProvider

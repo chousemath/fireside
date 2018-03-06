@@ -4,7 +4,7 @@ import { ModalIdentityPage } from './modal-identity';
 
 @NgModule({
   declarations: [
-    ModalIdentityPage,
+    // ModalIdentityPage,
   ],
   imports: [
     IonicPageModule.forChild(ModalIdentityPage),

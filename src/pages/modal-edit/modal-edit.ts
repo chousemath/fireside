@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavParams, ViewController } from 'ionic-angular';
+import { SpeechProvider } from '../../providers/speech/speech';
 
 /**
  * Generated class for the ModalEditPage page.
@@ -14,12 +15,25 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'modal-edit.html',
 })
 export class ModalEditPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  text: string;
+  constructor(
+    public navParams: NavParams,
+    public viewCtrl: ViewController,
+    public speech: SpeechProvider
+  ) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ModalEditPage');
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+
+  updateText() {
+    this.viewCtrl.dismiss({
+      text: this.text
+    });
   }
 
 }

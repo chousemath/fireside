@@ -49,8 +49,12 @@ export class PopoverLanguagePage {
     console.log('ionViewDidLoad PopoverLanguagePage');
   }
 
-  dismiss(value: string) {
-    this.viewCtrl.dismiss({ text: value });
+  dismiss(language) {
+    this.viewCtrl.dismiss({
+      key: language.key,
+      text: language.value,
+      name: language.name
+    });
   }
 
 }
